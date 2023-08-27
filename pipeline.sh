@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 
+# Get data using SRA toolkit
 fasterq-dump SRR7889560 --split-3 -O /home/anish/omics/meso/meso_sample3
 echo "Got Data"
 
+# Using trimmomatic to trim the data
 java -jar /usr/share/java/trimmomatic-0.39.jar  PE \
 -threads 32 -phred33 \
 /home/anish/omics/meso/meso_sample3/SRR7889560_1.fastq \
@@ -17,8 +19,10 @@ LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
 
 echo "Trimming Complete"
 
+# Setting ulimit for STAR
 ulimit -n 1000000
 
+# Aligning the reads to a reference genome
 STAR \
 --runThreadN 32 \
 --genomeDir /home/anish/omics/ref/output \
