@@ -32,3 +32,11 @@ STAR \
 
 
 echo "Alignment Complete"
+
+# Quantification
+featureCounts -a /home/anish/omics/ref/Homo_sapiens.GRCh38.109.gtf -o quants/meso/combined -s 1 -p -T 32 -M OVCAR3/OVCAR3_sample1/aligned_results/OV_SA1.bam OVCAR3/OVCAR3_sample2/aligned/OV_SA2.bam OVCAR3/OVCAR3_sample3/aligned/OV_SA3.bam healthy/healthy_sample1/aligned_results/he_sa1.bam healthy/healthy_sample2/aligned/he_sa2.bam healthy/healthy_sample3/aligned/he_SA3.bam 
+
+echo "Quantification Complete"
+
+# Creating the count matrix and writing it to a csv file
+cat combined | cut -f 1,7,8,9,10,11,12 >> count_matrix.csv
